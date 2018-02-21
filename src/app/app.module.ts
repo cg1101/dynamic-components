@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { Exercise1Module } from './exercise-1/exercise-1.module';
 import { Exercise2Module } from './exercise-2/exercise-2.module';
 
+import { CampaignDetailCardComponent, CampaignOverviewCardComponent, UnknownDynamicComponent } from './exercise-2/card.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +19,11 @@ import { Exercise2Module } from './exercise-2/exercise-2.module';
     AppRoutingModule
   ],
   providers: [
+  ],
+  entryComponents: [
+    CampaignOverviewCardComponent,
+    CampaignDetailCardComponent,
+    UnknownDynamicComponent,
   ],
   bootstrap: [AppComponent]
 })
