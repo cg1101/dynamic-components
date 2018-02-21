@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Exercise1Component implements OnInit {
 
+  items = [
+    {title: 'Mr. A'},
+    {title: 'Mr. B'},
+    {title: 'Mr. C'},
+    {title: 'Mr. D'},
+  ];
+
   constructor() { }
 
   ngOnInit() {

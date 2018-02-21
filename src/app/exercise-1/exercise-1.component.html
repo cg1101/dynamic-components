@@ -1,3 +1,8 @@
-<p>
-  exercise-1 works!
-</p>
+<h1>Flexi List Demo</h1>
+
+app-flex-list defines a flexible component that renders a list of items. Invoke can use BYO template for item rendering. Ng-template is used inside app-flex-list to define user customizable rendering template. This will be retrieved from app-flex-list using @ContentChild which is bound to property userTemplate and used as @Input for directive ngForTemplate.
+
+<app-flex-list [items]="items">
+  <ng-template let-item="$implicit" let-i="index">
+    <li>[{{i}}] Welcome {{item.title}}</li></ng-template>
+</app-flex-list>
