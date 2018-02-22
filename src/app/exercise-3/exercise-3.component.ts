@@ -28,6 +28,7 @@ export class Exercise3Component implements OnInit, OnDestroy {
   myCrazyTemplate: string = `<div>
 Hello, {{name}}.
 It isn't this wonderful!
+<button (click)="sayHello()">Say Hello</button>
 </div>`;
 
   componentRef: ComponentRef<any>;
@@ -47,7 +48,14 @@ It isn't this wonderful!
   private createComponentFactorySync(compiler: Compiler,
                                      metadata: Component,
                                      componentClass: any): ComponentFactory<any> {
-    const cmpClass = componentClass || class RuntimeComponent { name: string = 'Denys' };
+    // const cmpClass = componentClass || class RuntimeComponent { name: string = 'Denys' };
+    const cmpClass = componentClass || class MyFakeComponentClass {
+        name: string = 'The Great!';
+
+        sayHello() {
+          alert('hello from dynamically created component');
+        }
+      };
     const decoratedCmp = Component(metadata)(cmpClass);
 
     @NgModule({ imports: [CommonModule], declarations: [decoratedCmp] })
