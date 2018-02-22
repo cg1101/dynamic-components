@@ -1,7 +1,9 @@
 <h1 >Dynamic Component demo</h1>
 
+<h2>Dynamic content</h2>
+<h3>Context: <input type="text" [(ngModel)]="context.text"></h3>
 
-<card type="campaign-overview"></card>
-<card type="campaign-detail"></card>
-<card type="creative"></card>
-<card type="audience"></card>
+<card type="campaign-overview" [context]="context"></card>
+<card type="campaign-detail" [context]="context"></card>
+<card type="creative" [context]="context"></card>
+<card type="audience" [context]="context"></card>

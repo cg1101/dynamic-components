@@ -3,6 +3,10 @@ import {
   ComponentFactoryResolver
 } from '@angular/core';
 
+abstract class DynamicComponent {
+  context: any;
+}
+
 @Component({
   selector: 'card',
   template: `
@@ -11,7 +15,10 @@ import {
 </div>
 `
 })
-export class CardComponent implements OnInit, OnDestroy {
+export class CardComponent extends DynamicComponent implements OnInit, OnDestroy {
+
+  @Input()
+  context: any;
 
   @ViewChild('cardcanvas', {read: ViewContainerRef})
   container: ViewContainerRef;
@@ -23,6 +30,7 @@ export class CardComponent implements OnInit, OnDestroy {
   private componentRef: ComponentRef<{}>;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    super();
   }
 
   ngOnInit() {
@@ -30,6 +38,9 @@ export class CardComponent implements OnInit, OnDestroy {
       let componentType = this.getComponentType(this.type);
       let factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
       this.componentRef = this.container.createComponent(factory);
+
+      let instance = <DynamicComponent>this.componentRef.instance;
+      instance.context = this.context;
     }
   }
 
@@ -53,22 +64,22 @@ export class CardComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'card-campaign-detail',
-  template: `<div>card-campaign-detail</div>`
+  template: `<div>card-campaign-detail ({{context?.text}})</div>`
 })
-export class CampaignDetailCardComponent {
+export class CampaignDetailCardComponent extends DynamicComponent{
 }
 
 @Component({
   selector: 'card-campaign-overview',
-  template: `<div>card-campaign-overview</div>`
+  template: `<div>card-campaign-overview ({{context?.text}})</div>`
 })
-export class CampaignOverviewCardComponent {
+export class CampaignOverviewCardComponent extends DynamicComponent {
 }
 
 @Component({
   selector: 'unknown-component',
-  template: `<div>Unknown component</div>`
+  template: `<div>Unknown component ({{context?.text}})</div>`
 })
-export class UnknownDynamicComponent {
+export class UnknownDynamicComponent extends DynamicComponent {
 }
 

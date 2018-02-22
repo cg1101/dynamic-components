@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Exercise2Component implements OnInit {
 
+  context: any = {
+    text: 'default value',
+  };
+
   constructor() { }
 
   ngOnInit() {
