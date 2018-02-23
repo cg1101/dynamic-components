@@ -8,6 +8,7 @@ import { Exercise2Module } from './exercise-2/exercise-2.module';
 import { Exercise3Module } from './exercise-3/exercise-3.module';
 
 import { CampaignDetailCardComponent, CampaignOverviewCardComponent, UnknownDynamicComponent } from './exercise-2/card.component';
+import { ResponseUiService } from './response-ui.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CampaignDetailCardComponent, CampaignOverviewCardComponent, UnknownDyna
     AppRoutingModule
   ],
   providers: [
+    ResponseUiService,
   ],
   entryComponents: [
     CampaignOverviewCardComponent,
