@@ -9,6 +9,7 @@ import { Exercise3Module } from './exercise-3/exercise-3.module';
 
 import { CampaignDetailCardComponent, CampaignOverviewCardComponent, UnknownDynamicComponent } from './exercise-2/card.component';
 import { ResponseUiService } from './response-ui.service';
+import { WindowRef } from './WindowRef';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ResponseUiService } from './response-ui.service';
   ],
   providers: [
     ResponseUiService,
+    WindowRef,
   ],
   entryComponents: [
     CampaignOverviewCardComponent,
