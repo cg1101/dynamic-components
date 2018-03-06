@@ -1,45 +1,67 @@
 import {
-  Component, Input, ViewContainerRef, ViewChild, OnInit, OnDestroy, ComponentRef,
+  Component, Input, ViewContainerRef, OnInit, OnDestroy, ComponentRef,
   ComponentFactoryResolver
 } from '@angular/core';
 
-abstract class DynamicComponent {
+interface DynamicComponent {
   context: any;
+  type: string;
+}
+
+/* tslint:disable:component-selector*/
+@Component({
+  selector: 'card-campaign-detail',
+  template: `<div>card-campaign-detail ({{context?.text}})</div>`
+})
+export class CampaignDetailCardComponent implements DynamicComponent {
+  @Input() context: any;
+  @Input() type: string;
+}
+
+@Component({
+  selector: 'card-campaign-overview',
+  template: `<div>card-campaign-overview ({{context?.text}})</div>`
+})
+export class CampaignOverviewCardComponent implements DynamicComponent {
+  @Input() context: any;
+  @Input() type: string;
+}
+
+@Component({
+  selector: 'unknown-component',
+  template: `<div>Unknown component ({{context?.text}})</div>`
+})
+export class UnknownDynamicComponent implements DynamicComponent {
+  @Input() context: any;
+  @Input() type: string;
 }
 
 @Component({
   selector: 'card',
-  template: `
-<div>
-  <div #cardcanvas></div>
-</div>
-`
+  template: '<ng-container></ng-container>'
 })
-export class CardComponent extends DynamicComponent implements OnInit, OnDestroy {
+export class CardComponent implements OnInit, OnDestroy, DynamicComponent {
 
-  @Input()
-  context: any;
-
-  @ViewChild('cardcanvas', {read: ViewContainerRef})
-  container: ViewContainerRef;
-
-  @Input()
-  type: string;
-
+  @Input() context: any;
+  @Input() type: string;
 
   private componentRef: ComponentRef<{}>;
+  private mappings = {
+    'campaign-overview': CampaignOverviewCardComponent,
+    'campaign-detail': CampaignDetailCardComponent,
+  };
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-    super();
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private container: ViewContainerRef) {
   }
 
   ngOnInit() {
     if (this.type) {
-      let componentType = this.getComponentType(this.type);
-      let factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+      const componentType = this.getComponentType(this.type);
+      const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
       this.componentRef = this.container.createComponent(factory);
 
-      let instance = <DynamicComponent>this.componentRef.instance;
+      const instance = <DynamicComponent>this.componentRef.instance;
       instance.context = this.context;
     }
   }
@@ -51,35 +73,9 @@ export class CardComponent extends DynamicComponent implements OnInit, OnDestroy
     }
   }
 
-  private mappings = {
-    'campaign-overview': CampaignOverviewCardComponent,
-    'campaign-detail': CampaignDetailCardComponent,
-  };
-
   getComponentType(typeName: string) {
-    let type = this.mappings[typeName];
+    const type = this.mappings[typeName];
     return type || UnknownDynamicComponent;
   }
 }
-
-@Component({
-  selector: 'card-campaign-detail',
-  template: `<div>card-campaign-detail ({{context?.text}})</div>`
-})
-export class CampaignDetailCardComponent extends DynamicComponent{
-}
-
-@Component({
-  selector: 'card-campaign-overview',
-  template: `<div>card-campaign-overview ({{context?.text}})</div>`
-})
-export class CampaignOverviewCardComponent extends DynamicComponent {
-}
-
-@Component({
-  selector: 'unknown-component',
-  template: `<div>Unknown component ({{context?.text}})</div>`
-})
-export class UnknownDynamicComponent extends DynamicComponent {
-}
-
+/* tslint:enable:componet-selector*/

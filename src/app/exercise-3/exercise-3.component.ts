@@ -23,9 +23,9 @@ import {CommonModule} from '@angular/common';
 export class Exercise3Component implements OnInit, OnDestroy {
 
   @ViewChild('container', {read: ViewContainerRef})
-    container: ViewContainerRef;
+  container: ViewContainerRef;
 
-  myCrazyTemplate: string = `<div>
+  myCrazyTemplate = `<div>
 Hello, {{name}}.
 It isn't this wonderful!
 <button (click)="sayHello()">Say Hello</button>
@@ -33,7 +33,8 @@ It isn't this wonderful!
 
   componentRef: ComponentRef<any>;
 
-  constructor(private compiler: Compiler, ) { }
+  constructor(private compiler: Compiler) {
+  }
 
   ngOnInit() {
   }
@@ -50,7 +51,7 @@ It isn't this wonderful!
                                      componentClass: any): ComponentFactory<any> {
     // const cmpClass = componentClass || class RuntimeComponent { name: string = 'Denys' };
     const cmpClass = componentClass || class MyFakeComponentClass {
-        name: string = 'The Great!';
+        name = 'The Great!';
 
         sayHello() {
           alert('hello from dynamically created component');
@@ -58,20 +59,21 @@ It isn't this wonderful!
       };
     const decoratedCmp = Component(metadata)(cmpClass);
 
-    @NgModule({ imports: [CommonModule], declarations: [decoratedCmp] })
-    class RuntimeComponentModule { }
+    @NgModule({imports: [CommonModule], declarations: [decoratedCmp]})
+    class RuntimeComponentModule {
+    }
 
-    let module: ModuleWithComponentFactories<any> = compiler.compileModuleAndAllComponentsSync(RuntimeComponentModule);
+    const module: ModuleWithComponentFactories<any> = compiler.compileModuleAndAllComponentsSync(RuntimeComponentModule);
     return module.componentFactories.find(f => f.componentType === decoratedCmp);
   }
 
   compileTemplate() {
-    let metadata = {
+    const metadata = {
       selector: `runtime-component-sample`,
       template: this.myCrazyTemplate
     };
 
-    let factory = this.createComponentFactorySync(this.compiler, metadata, null);
+    const factory = this.createComponentFactorySync(this.compiler, metadata, null);
 
     if (this.componentRef) {
       this.componentRef.destroy();
