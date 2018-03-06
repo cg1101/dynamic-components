@@ -25,6 +25,11 @@ import {
     CardComponent,
     UnknownDynamicComponent,
   ],
+  entryComponents: [
+    CampaignOverviewCardComponent,
+    CampaignDetailCardComponent,
+    UnknownDynamicComponent,
+  ],
   exports: [
     Exercise2Component,
     CampaignDetailCardComponent,

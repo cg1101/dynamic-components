@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'exercise-2',
+    loadChildren: './exercise-2/exercise-2.module#Exercise2Module'
+  },
+  {
     path: 'exercise-3',
     loadChildren: './exercise-3/exercise-3.module#Exercise3Module'
   },

@@ -5,7 +5,7 @@ import { Exercise2Component } from './exercise-2.component';
 
 const routes: Routes = [
   {
-    path: 'exercise-2',
+    path: '',
     component: Exercise2Component,
   }
 ];
