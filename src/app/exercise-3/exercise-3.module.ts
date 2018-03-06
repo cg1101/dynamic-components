@@ -11,9 +11,14 @@ import { Exercise3Component } from './exercise-3.component';
     FormsModule,
     Exercise3RoutingModule
   ],
-  declarations: [Exercise3Component],
+  declarations: [
+    Exercise3Component,
+  ],
   providers: [
     Compiler,
+  ],
+  exports: [
+    Exercise3Component,
   ]
 })
 export class Exercise3Module { }

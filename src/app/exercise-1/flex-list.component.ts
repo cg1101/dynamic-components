@@ -11,8 +11,7 @@ import {Component, OnInit, Input, TemplateRef, ContentChild} from '@angular/core
 })
 export class FlexListComponent implements OnInit {
 
-  @ContentChild(TemplateRef)
-  userTemplate: TemplateRef<any>;
+  @ContentChild(TemplateRef) userTemplate: TemplateRef<any>;
 
   @Input() items: any[];
 
