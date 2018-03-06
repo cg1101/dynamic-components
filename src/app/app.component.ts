@@ -4,8 +4,8 @@ import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import {ResponseUiService} from './response-ui.service';
-import {WindowRef} from './WindowRef';
+import {ResponseUiService} from './core/response-ui.service';
+import {WindowRef} from './core/WindowRef';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
               private winRef: WindowRef) {
     // the size is available now but cannot set body's class yet
     // getting the native window obj
-    // console.log('Navite window obj', winRef.nativeWindow);
+    // console.log('Native window obj', winRef.nativeWindow);
     // console.log('window size', winRef.nativeWindow.innerWidth, 'x', winRef.nativeWindow.innerHeight);
   }
 
