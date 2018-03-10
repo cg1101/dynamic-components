@@ -14,7 +14,7 @@ export class ResponseUiService {
   private bodyResizeSubject: Subject<Window>;
 
   constructor(private eventManager: EventManager) {
-    this.resizeSubject = new Subject();
+    this.resizeSubject = new Subject<Window>();
     this.eventManager.addGlobalEventListener('window', 'resize', this.onResize.bind(this));
   }
 
